@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Tags Cheatsheet</title>
+  <link href="https://cdn.jsdelivr.net/npm/sanitize.css" rel="stylesheet">
+  <style>
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    input[type="search"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      background: #1e293b;
+      border: none;
+      border-radius: 6px;
+      color: white;
+    }
+    table {
+      width: 100%;
+      border-spacing: 0;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #334155;
+    }
+    .btn-preview {
+      background: #38bdf8;
+      color: black;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-preview:hover {
+      background: #0ea5e9;
+    }
+    pre {
+      background: #0b1120;
+      padding: 0.5rem;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>HTML Tags Cheatsheet</h1>
+  <input id="search" type="search" placeholder="Search tag name, code, or description…" />
+  <table>
+    <thead>
+      <tr><th>Tag</th><th>Name</th><th>Code</th><th>Preview</th></tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+
+  <script>
+    const tags = [
+      {
+        tag: '&lt;a&gt;', name: 'anchor', code: '<a href="https://example.com">Link</a>',
+        preview: '<a href="https://example.com" target="_blank">Link</a>'
+      },
+      {
+        tag: '&lt;b&gt;', name: 'bold', code: '<b>Bold</b>', preview: '<b>Bold</b>'
+      },
+      {
+        tag: '&lt;i&gt;', name: 'italic', code: '<i>Italic</i>', preview: '<i>Italic</i>'
+      },
+      {
+        tag: '&lt;form&gt;', name: 'form', code: '<form><input type="text" /><input type="submit" /></form>', preview: '<form><input type="text" /><input type="submit" /></form>'
+      },
+      {
+        tag: '&lt;ul&gt;', name: 'unordered list', code: '<ul><li>One</li></ul>', preview: '<ul><li>One</li><li>Two</li><li>Three</li></ul>'
+      },
+      {
+        tag: '&lt;img&gt;', name: 'image', code: '<img src="pic_trulli.jpg" alt="Trulli" width="500" height="333">',
+        preview: '<img src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Trulli" width="500" height="333">'
+      },
+      {
+        tag: '&lt;audio&gt;', name: 'audio player', code: '<audio controls><source src="audio.mp3"></audio>',
+        preview: '<audio controls><source src="https://www.w3schools.com/html/horse.mp3"></audio>'
+      },
+      {
+        tag: '&lt;video&gt;', name: 'video player', code: '<video controls><source src="video.mp4"></video>',
+        preview: '<video controls><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video>'
+      },
+      {
+        tag: '&lt;p&gt;', name: 'paragraph', code: '<p>This is a paragraph.</p>', preview: '<p>This is a paragraph.</p>'
+      },
+      {
+        tag: '&lt;hr&gt;', name: 'horizontal rule', code: '<hr>', preview: '<hr>'
+      },
+      {
+        tag: '&lt;h1&gt;-&lt;h6&gt;', name: 'headings', code: '<h1>Heading 1</h1> ... <h6>Heading 6</h6>', preview: '<h1>Heading 1</h1><h2>H2</h2><h3>H3</h3><h4>H4</h4><h5>H5</h5><h6>H6</h6>'
+      },
+      {
+        tag: '&lt;table&gt;', name: 'table layout', code: '<table><tr><td>Cell</td></tr></table>', preview: '<table border="1"><tr><td>Cell</td></tr></table>'
+      },
+      {
+        tag: '&lt;tr&gt;&lt;td&gt;&lt;th&gt;', name: 'table rows & cells', code: '<table><tr><td>Data</td><th>Header</th></tr></table>', preview: '<table border="1"><tr><td>Data</td><th>Header</th></tr></table>'
+      },
+      {
+        tag: '&lt;input&gt;', name: 'form input', code: '<input type="text" placeholder="Your name" />', preview: '<input type="text" placeholder="Your name" />'
+      },
+      {
+        tag: '&lt;button&gt;', name: 'button', code: '<button>Click Me</button>', preview: '<button>Click Me</button>'
+      },
+      {
+        tag: '&lt;select&gt;&lt;option&gt;', name: 'dropdown menu', code: '<select><option>One</option><option>Two</option><option>Three</option></select>', preview: '<select><option>One</option><option>Two</option></select>'
+      },
+      {
+        tag: '&lt;div&gt;', name: 'division block', code: '<div>This is a div</div>', preview: '<div>This is a div</div>'
+      },
+      {
+        tag: '&lt;span&gt;', name: 'inline span', code: '<span>Inline text</span>', preview: '<span>Inline text</span>'
+      },
+      {
+        tag: '&lt;strong&gt;', name: 'strong text', code: '<strong>Important</strong>', preview: '<strong>Important</strong>'
+      },
+      {
+        tag: '&lt;em&gt;', name: 'emphasis', code: '<em>Emphasized</em>', preview: '<em>Emphasized</em>'
+      },
+      {
+        tag: '&lt;mark&gt;', name: 'highlight', code: '<mark>Marked</mark>', preview: '<mark>Marked</mark>'
+      },
+      {
+        tag: '&lt;abbr&gt;', name: 'abbreviation', code: '<abbr title="World Health Organization">WHO</abbr>', preview: '<abbr title="World Health Organization">WHO</abbr>'
+      },
+      {
+        tag: '&lt;code&gt;', name: 'code snippet', code: '<code>let x = 10;</code>', preview: '<code>let x = 10;</code>'
+      },
+      {
+        tag: '&lt;pre&gt;', name: 'preformatted', code: '<pre>  Line1\n  Line2</pre>', preview: '<pre>  Line1\n  Line2</pre>'
+      },
+      {
+        tag: '&lt;br&gt;', name: 'line break', code: 'First Line<br>Second Line', preview: 'First Line<br>Second Line'
+      },
+      {
+        tag: '&lt;small&gt;', name: 'small text', code: '<small>Footnote</small>', preview: '<small>Footnote</small>'
+      },
+      {
+        tag: '&lt;sup&gt;', name: 'superscript', code: 'x<sup>2</sup>', preview: 'x<sup>2</sup>'
+      },
+      {
+        tag: '&lt;sub&gt;', name: 'subscript', code: 'H<sub>2</sub>O', preview: 'H<sub>2</sub>O'
+      },
+      {
+        tag: '&lt;iframe&gt;', name: 'inline frame', code: '<iframe src="https://example.com"></iframe>', preview: '<iframe src="https://example.com" width="300" height="200"></iframe>'
+      }
+    ];
+
+    const tbody = document.getElementById('table-body');
+    tags.forEach(({tag, name, code, preview}, i) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><code>${tag}</code></td>
+        <td>${name}</td>
+        <td><pre><code>${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre></td>
+        <td><button class="btn-preview" data-index="${i}">Open</button></td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    document.querySelectorAll('.btn-preview').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        const newWindow = window.open();
+        newWindow.document.write('<!DOCTYPE html><html><head><title>Preview</title></head><body>' + tags[index].preview + '</body></html>');
+        newWindow.document.close();
+      });
+    });
+
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      tbody.querySelectorAll('tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
